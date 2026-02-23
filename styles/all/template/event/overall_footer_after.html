@@ -1,0 +1,5 @@
+{% if SCRIPT_NAME == 'posting' or S_COMPOSE_PM %}
+	{% if config('giphy_enable') %}
+		{% INCLUDECSS '@vinny_giphy/giphy.css' %}
+	{% endif %}
+{% endif %}

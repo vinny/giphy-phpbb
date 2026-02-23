@@ -1,0 +1,16 @@
+services:
+    vinny.giphy.controller.main:
+        class: vinny\giphy\controller\main
+        arguments:
+            - '@config'
+            - '@request'
+
+    vinny.giphy.listener:
+        class: vinny\giphy\event\listener
+        arguments:
+            - '@config'
+            - '@language'
+            - '@template'
+            - '@controller.helper'
+        tags:
+            - { name: event.listener }

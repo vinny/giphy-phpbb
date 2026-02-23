@@ -1,0 +1,27 @@
+{% if config('giphy_enable') and U_GIPHY_API %}
+
+<button type="button" id="open-giphy-modal" class="button button-secondary" title="{{ lang('GIPHY_SEARCH_PLACEHOLDER') }}"
+	data-giphy-api="{{ U_GIPHY_API|e('html_attr') }}"
+	data-giphy-trending="{% if S_GIPHY_TRENDING %}true{% else %}false{% endif %}"
+	data-lang-unauthorized="{{ lang('GIPHY_APIKEY_UNAUTHORIZED')|e('html_attr') }}"
+	data-lang-invalid="{{ lang('GIPHY_APIKEY_INVALID')|e('html_attr') }}"
+	data-lang-limit="{{ lang('GIPHY_USAGE_LIMIT')|e('html_attr') }}"
+	data-lang-connect="{{ lang('GIPHY_ERROR_CONNECT')|e('html_attr') }}"
+	data-lang-no-results="{{ lang('GIPHY_NO_RESULTS')|e('html_attr') }}"
+	data-lang-error="{{ lang('GIPHY_SEARCH_ERROR')|e('html_attr') }}">
+	<i class="fa fa-file"></i> {{ lang('GIPHY_GIF') }}
+</button>
+
+<div id="giphy-modal" class="modal-overlay">
+	<div class="modal">
+		<div class="modal-header">
+			<input type="text" id="giphy-search" placeholder="{{ lang('GIPHY_SEARCH_PLACEHOLDER') }}">
+			<button class="close-modal" type="button" title="{{ lang('CLOSE') }}"><i class="fa fa-times" aria-hidden="true"></i></button>
+		</div>
+		<div id="giphy-results"></div>
+		<img src="{ROOT_PATH}ext/vinny/giphy/styles/all/theme/images/poweredby.png" alt="{{ lang('GIPHY_POWERED_BY') }}" class="poweredby">
+	</div>
+</div>
+
+{% INCLUDEJS '@vinny_giphy/js/giphy.js' %}
+{% endif %}

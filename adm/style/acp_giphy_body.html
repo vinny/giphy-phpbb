@@ -1,0 +1,45 @@
+{% INCLUDE 'overall_header.html' %}
+
+<a id="maincontent"></a>
+
+<h1>{{ lang('ACP_GIPHY_SETTINGS') }}</h1>
+
+<p>{{ lang('ACP_GIPHY_SETTINGS_EXPLAIN') }}</p>
+
+<form id="acp_giphy" method="post" action="{{ U_ACTION }}">
+	<fieldset>
+		<legend>{{ lang('ACP_GIPHY_SETTINGS') }}</legend>
+
+		<dl>
+			<dt><label for="giphy_enable">{{ lang('ACP_GIPHY_ENABLE') }}{{ lang('COLON') }}</label></dt>
+			<dd>
+				<label><input type="radio" class="radio" id="giphy_enable" name="giphy_enable" value="1" {% if GIPHY_ENABLE %}checked="checked"{% endif %} /> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="giphy_enable" value="0" {% if not GIPHY_ENABLE %}checked="checked"{% endif %} /> {{ lang('NO') }}</label>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="giphy_apikey">{{ lang('ACP_GIPHY_APIKEY') }}{{ lang('COLON') }}</label><br /><span>{{ lang('ACP_GIPHY_APIKEY_EXPLAIN') }}</span></dt>
+			<dd><input type="text" id="giphy_apikey" size="40" maxlength="255" name="giphy_apikey" value="{{ GIPHY_APIKEY }}" /></dd>
+		</dl>
+		<dl>
+			<dt><label for="giphy_trending">{{ lang('ACP_GIPHY_TRENDING') }}{{ lang('COLON') }}</label><br /><span>{{ lang('ACP_GIPHY_TRENDING_EXPLAIN') }}</span></dt>
+			<dd>
+				<label><input type="radio" class="radio" id="giphy_trending" name="giphy_trending" value="1" {% if GIPHY_TRENDING %}checked="checked"{% endif %} /> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="giphy_trending" value="0" {% if not GIPHY_TRENDING %}checked="checked"{% endif %} /> {{ lang('NO') }}</label>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="giphy_limit">{{ lang('ACP_GIPHY_LIMIT') }}{{ lang('COLON') }}</label><br /><span>{{ lang('ACP_GIPHY_LIMIT_EXPLAIN') }}</span></dt>
+			<dd><input type="number" id="giphy_limit" min="1" max="50" name="giphy_limit" value="{{ GIPHY_LIMIT }}" /></dd>
+		</dl>
+	</fieldset>
+
+	<fieldset class="submit-buttons">
+		<legend>{{ lang('SUBMIT') }}</legend>
+		<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />&nbsp;
+		<input class="button2" type="reset" id="reset" name="reset" value="{{ lang('RESET') }}" />
+		{{ S_FORM_TOKEN }}
+	</fieldset>
+</form>
+
+{% INCLUDE 'overall_footer.html' %}

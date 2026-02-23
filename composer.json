@@ -1,0 +1,33 @@
+{
+    "name": "vinny/giphy",
+    "type": "phpbb-extension",
+    "description": "Integrates Giphy into the phpBB posting interface",
+    "homepage": "https://github.com/vinny/giphy",
+    "version": "1.0.0",
+    "time": "2025-06-04",
+    "keywords": ["phpbb", "extension", "gif", "social"],
+    "license": "GPL-2.0-only",
+    "authors": [
+        {
+            "name": "_Vinny_",
+			"homepage": "https://github.com/vinny",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.2.0",
+		"phpbb/phpbb": "^3.3.0"
+    },
+    "extra": {
+        "display-name": "Giphy",
+        "soft-require": {
+            "phpbb/phpbb": "^3.3.0"
+        },
+        "version-check": {
+            "host": "www.phpbb.com",
+            "directory": "/customise/db/extension/giphy",
+            "filename": "version_check",
+            "ssl": true
+        }
+    }
+}
