@@ -29,7 +29,7 @@ class install_data extends \phpbb\db\migration\migration
 			['config.add', ['giphy_enable', 0]],
 			['config.add', ['giphy_apikey', '']],
 			['config.add', ['giphy_trending', 1]],
-			['config_text.add', ['giphy_limit', 25]],
+			['config.add', ['giphy_limit', 25]],
 
 			// Add a parent module (ACP_GIPHY_TITLE) to the Extensions tab (ACP_CAT_DOT_MODS)
 			['module.add', [

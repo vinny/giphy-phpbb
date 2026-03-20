@@ -1,3 +1,5 @@
 vinny_giphy_api:
     path: /giphy/api
     defaults: { _controller: vinny.giphy.controller.main:handle }
+    requirements:
+        _method: GET

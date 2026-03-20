@@ -45,4 +45,10 @@ $lang = array_merge($lang, array(
 	'GIPHY_NO_RESULTS'			=> 'No results found.',
 	'GIPHY_USAGE_LIMIT'			=> 'API usage limit exceeded. Please try again later.',
 	'GIPHY_SEARCH_ERROR'		=> 'Error searching for GIFs:',
+
+	'GIPHY_DISABLED'			=> 'Giphy integration is disabled.',
+	'GIPHY_APIKEY_MISSING'		=> 'API key is not configured.',
+	'GIPHY_API_FAILED'			=> 'API request failed.',
+	'GIPHY_INVALID_JSON'		=> 'Invalid JSON from API.',
+	'GIPHY_API_UNAUTHORIZED'	=> 'You are not authorized to use this endpoint.',
 ));

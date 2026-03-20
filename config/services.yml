@@ -4,6 +4,8 @@ services:
         arguments:
             - '@config'
             - '@request'
+            - '@user'
+            - '@language'
 
     vinny.giphy.listener:
         class: vinny\giphy\event\listener
