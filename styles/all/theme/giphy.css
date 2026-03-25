@@ -117,3 +117,8 @@ input#giphy-search {
 		font-size: 16px;
 	}
 }
+
+/* ABBC3 GIF button */
+.abbc3-giphy-btn {
+	background-image: url('./images/icon_gif.png') !important;
+}

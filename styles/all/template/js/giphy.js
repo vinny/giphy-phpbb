@@ -2,22 +2,29 @@
 	'use strict';
 
 	document.addEventListener('DOMContentLoaded', () => {
-		const openBtn = document.getElementById('open-giphy-modal');
-		if (!openBtn) return; // Exist if button isn't on the page
+		const openBtns = document.querySelectorAll('.open-giphy-modal');
+		if (openBtns.length === 0) return;
 
-		const GIPHY_API_URL = openBtn.getAttribute('data-giphy-api');
+		const configBtn = openBtns[0];
+		const GIPHY_API_URL = configBtn.getAttribute('data-giphy-api');
 		const GIPHY_SEARCH_URL = GIPHY_API_URL + (GIPHY_API_URL.indexOf('?') !== -1 ? '&' : '?') + 'action=search&q=';
 		const GIPHY_TRENDING_URL = GIPHY_API_URL + (GIPHY_API_URL.indexOf('?') !== -1 ? '&' : '?') + 'action=trending';
-		const GIPHY_TRENDING_ENABLED = openBtn.getAttribute('data-giphy-trending') === 'true';
+		const GIPHY_TRENDING_ENABLED = configBtn.getAttribute('data-giphy-trending') === 'true';
 
-		const LANG_APIKEY_UNAUTHORIZED = openBtn.getAttribute('data-lang-unauthorized');
-		const LANG_APIKEY_INVALID = openBtn.getAttribute('data-lang-invalid');
-		const LANG_USAGE_LIMIT = openBtn.getAttribute('data-lang-limit');
-		const LANG_ERROR_CONNECT = openBtn.getAttribute('data-lang-connect');
-		const LANG_NO_RESULTS = openBtn.getAttribute('data-lang-no-results');
-		const LANG_SEARCH_ERROR = openBtn.getAttribute('data-lang-error');
+		const LANG_APIKEY_UNAUTHORIZED = configBtn.getAttribute('data-lang-unauthorized');
+		const LANG_APIKEY_INVALID = configBtn.getAttribute('data-lang-invalid');
+		const LANG_USAGE_LIMIT = configBtn.getAttribute('data-lang-limit');
+		const LANG_ERROR_CONNECT = configBtn.getAttribute('data-lang-connect');
+		const LANG_NO_RESULTS = configBtn.getAttribute('data-lang-no-results');
+		const LANG_SEARCH_ERROR = configBtn.getAttribute('data-lang-error');
 
 		const modal = document.getElementById('giphy-modal');
+		if (!modal) return;
+		
+		if (modal.parentNode !== document.body) {
+			document.body.appendChild(modal);
+		}
+
 		const closeBtn = modal.querySelector('.close-modal');
 		const searchInput = document.getElementById('giphy-search');
 		const resultsDiv = document.getElementById('giphy-results');
@@ -103,24 +110,25 @@
 				});
 		}
 
-		openBtn.addEventListener('click', () => {
-			document.body.style.overflow = 'hidden';
-			modal.classList.add('active');
-			searchInput.value = '';
-			if (currentAbortController) currentAbortController.abort();
-			searchInput.focus();
-			if (GIPHY_TRENDING_ENABLED) {
-				loadGifs(GIPHY_TRENDING_URL);
-			} else {
-				resultsDiv.innerHTML = '';
-			}
+		openBtns.forEach(btn => {
+			btn.addEventListener('click', () => {
+				document.body.style.overflow = 'hidden';
+				modal.classList.add('active');
+				searchInput.value = '';
+				if (currentAbortController) currentAbortController.abort();
+				searchInput.focus();
+				if (GIPHY_TRENDING_ENABLED) {
+					loadGifs(GIPHY_TRENDING_URL);
+				} else {
+					resultsDiv.innerHTML = '';
+				}
+			});
 		});
 
 		closeBtn.addEventListener('click', closeModal);
 		modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 		
 		modal.addEventListener('transitionend', (e) => {
-			// Ensure cleanup only happens after the close animation completes on the overlay
 			if (!modal.classList.contains('active') && e.target === modal && e.propertyName === 'opacity') {
 				resultsDiv.innerHTML = '';
 				searchInput.value = '';

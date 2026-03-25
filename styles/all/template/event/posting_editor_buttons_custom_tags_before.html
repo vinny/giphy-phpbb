@@ -1,6 +1,6 @@
 {% if config('giphy_enable') and U_GIPHY_API %}
 
-<button type="button" id="open-giphy-modal" class="button button-secondary" title="{{ lang('GIPHY_SEARCH_PLACEHOLDER') }}"
+<button type="button" class="button button-secondary open-giphy-modal" title="{{ lang('GIPHY_SEARCH_PLACEHOLDER') }}"
 	data-giphy-api="{{ U_GIPHY_API|e('html_attr') }}"
 	data-giphy-trending="{% if S_GIPHY_TRENDING %}true{% else %}false{% endif %}"
 	data-lang-unauthorized="{{ lang('GIPHY_APIKEY_UNAUTHORIZED')|e('html_attr') }}"
