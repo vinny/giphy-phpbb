@@ -6,6 +6,7 @@ services:
             - '@request'
             - '@user'
             - '@language'
+            - '@auth'
 
     vinny.giphy.listener:
         class: vinny\giphy\event\listener

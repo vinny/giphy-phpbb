@@ -77,11 +77,21 @@
 						img.title = gif.title ?? '';
 						
 						img.addEventListener('click', () => {
-							const messageField = document.getElementById('message');
-							if (messageField) {
-								messageField.value += '[img]' + gif.images.original.url + '[/img]\n';
-								closeModal();
+							const bbcode = '[img]' + gif.images.original.url + '[/img] ';
+							if (typeof window.insert_text === 'function') {
+								window.insert_text(bbcode);
+							} else {
+								let targetId = (typeof window.text_name !== 'undefined') ? window.text_name : 'message';
+								const messageField = document.getElementById(targetId) 
+													|| document.getElementById('signature') 
+													|| document.querySelector('textarea');
+								if (messageField) {
+									messageField.value += (messageField.value.length > 0 && !messageField.value.endsWith(' ') ? ' ' : '') + bbcode;
+									messageField.focus();
+								}
 							}
+							
+							closeModal();
 						});
 						resultsDiv.appendChild(img);
 					});

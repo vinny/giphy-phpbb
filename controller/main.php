@@ -24,6 +24,9 @@ class main
 	/** @var \phpbb\language\language */
 	protected $language;
 
+	/** @var \phpbb\auth\auth */
+	protected $auth;
+
 	/**
 	 * Constructor
 	 *
@@ -31,13 +34,15 @@ class main
 	 * @param \phpbb\request\request_interface $request  Request object
 	 * @param \phpbb\user                      $user     User object
 	 * @param \phpbb\language\language         $language Language object
+	 * @param \phpbb\auth\auth                 $auth     Auth object
 	 */
-	public function __construct(\phpbb\config\config $config, \phpbb\request\request_interface $request, \phpbb\user $user, \phpbb\language\language $language)
+	public function __construct(\phpbb\config\config $config, \phpbb\request\request_interface $request, \phpbb\user $user, \phpbb\language\language $language, \phpbb\auth\auth $auth)
 	{
 		$this->config = $config;
 		$this->request = $request;
 		$this->user = $user;
 		$this->language = $language;
+		$this->auth = $auth;
 	}
 
 	/**
@@ -49,7 +54,8 @@ class main
 	{
 		$this->language->add_lang('common', 'vinny/giphy');
 
-		if ($this->user->data['user_id'] == ANONYMOUS || !$this->user->data['is_registered'])
+		// Check if the user has permission to post
+		if (!$this->auth->acl_getf_global('f_post') && !$this->auth->acl_get('u_sendpm') && !$this->auth->acl_get('u_sig'))
 		{
 			return new \Symfony\Component\HttpFoundation\JsonResponse(['error' => $this->language->lang('GIPHY_API_UNAUTHORIZED')], 403);
 		}
@@ -87,10 +93,10 @@ class main
 		// Use stream context to ignore HTTP errors so we can fetch the body and forward the status code
 		$options = [
 			'http' => [
-				'method'        => 'GET',
-				'header'        => "Content-type: application/x-www-form-urlencoded\r\n",
-				'ignore_errors' => true,
-				'timeout'       => 10
+				'method'		=> 'GET',
+				'header'		=> "Content-type: application/x-www-form-urlencoded\r\n",
+				'ignore_errors'	=> true,
+				'timeout'		=> 10
 			]
 		];
 
